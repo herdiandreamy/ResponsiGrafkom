@@ -1,0 +1,98 @@
+TEST); // mengaktifkan depth buffer glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluPerspective(45.0, 1.0, 1.0, 100.0); // set proyeksi ke perspektif glMatrixMode(GL_MODELVIEW);
+glLoadIdentity();
+ 
+// inisialisasi kamera pandang
+gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+// aktifkan pencahayaan glEnable(GL_LIGHTING); glEnable(GL_COLOR_MATERIAL); glEnable(GL_LIGHT0);
+}
+
+
+// fungsi ini digunakan bila layar akan diresize (default)
+
+
+void reshape(int w, int h)
+{
+glViewport(0, 0, (GLsizei)w, (GLsizei)h); glMatrixMode(GL_PROJECTION); glLoadIdentity();
+gluPerspective(45, (GLfloat)w / (GLfloat)h, 1.0, 100.0); glMatrixMode(GL_MODELVIEW);
+}
+
+
+// fungsi untuk mengatur masukan dari keyboard
+// untuk arah kiri, kanan, atas, bawah, PgUp, dan PgDn void keyboard(int key, int x, int y)
+{
+float fraction = 0.1f;
+
+
+switch (key)
+{
+// masukkan perintah disini bila tombol kiri ditekan case GLUT_KEY_LEFT:
+ 
+// dalam hal ini perintah rotasi obyek ke kiri sebanyak 1 derajat objectAngleY -= 1.0f;
+glutPostRedisplay(); // update obyek break;
+// masukkan perintah disini bila tombol kanan ditekan case GLUT_KEY_RIGHT:
+// dalam hal ini perintah rotasi obyek ke kanan sebanyak 1 derajat objectAngleY += 1.0f;
+glutPostRedisplay(); // update obyek break;
+// masukkan perintah disini bila tombol atas ditekan case GLUT_KEY_UP:
+
+// dalam hal ini perintah rotasi obyek ke atas sebanyak 1 derajat objectAngleX -= 1.0f;
+glutPostRedisplay(); // update obyek break;
+// masukkan perintah disini bila tombol bawah ditekan case GLUT_KEY_DOWN:
+// dalam hal ini perintah rotasi obyek ke bawah sebanyak 1 derajat objectAngleX += 1.0f;
+glutPostRedisplay(); // update obyek break;
+// zoom in
+case GLUT_KEY_PAGE_UP:
+// masukkan perintah disini bila tombol PgUp ditekan posX += rotX * fraction;
+posZ += rotZ * fraction; glutPostRedisplay(); // update obyek
+ 
+break;
+// zoom out
+case GLUT_KEY_PAGE_DOWN:
+// masukkan perintah disini bila tombol PgDn ditekan posX -= rotX * fraction;
+posZ -= rotZ * fraction; glutPostRedisplay(); // update obyek break;
+}
+}
+
+
+// timer untuk animasi (gunakan bila perlu) void timer(int value)
+{
+glutPostRedisplay();
+
+
+glutTimerFunc(55, timer, 0);
+}
+
+
+// program utama
+int main(int argc, char** argv)
+{
+// inisialisasi jendela OpenGL
+// GLUT_SINGLE berarti memakai single buffer
+// GLUT_DOUBLE berarti memakai double buffer
+// GLUT_RGB berarti mode tampilan yang dipakai RGB
+// GLUT_RGBA berarti mode tampilan yang dipakai RGBA
+// GLUT_DEPTH berarti memakai depth buffer glutInit(&argc, argv);
+ 
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+
+
+// set ukuran jendela tampilan
+glutInitWindowSize(480, 480); // besarnya jendela dalam piksel dalam hal ini300x300 glutInitWindowPosition(100, 100); // posisi jendela dilayar komputer dalam piksel
+
+// judul jendela (wajib diubah dengan informasi NAMA / NIM - JUDUL PRAKTIKUM masing- masing)
+
+
+glutCreateWindow("HERDIAN SHAHZARANDY / 2000018085 - POSTEST 6");
+
+
+// panggil fungsi init untuk inisialisasi awal init();
+
+// event handler untuk display, reshape dan keyboard glutDisplayFunc(display); // display glutReshapeFunc(reshape); // reshape glutSpecialFunc(keyboard); // keyboard
+//glutTimerFunc(0, timer, 0); // aktifkan timer bila perlu
+
+
+// looping glutMainLoop();
+
+return 0;
+}
